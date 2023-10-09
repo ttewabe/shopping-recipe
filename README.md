@@ -11,3 +11,30 @@ Additionally, when using a project created with Angular CLI 6+ (check via ng v )
 Also see this lecture - I do show the complete setup process there: https://www.udemy.com/the-complete-guide-to-angular-2/learn/v4/t/lecture/6655614/
 
 If you're facing any problems, please have a look at this very thorough thread by Jost: https://www.udemy.com/course/the-complete-guide-to-angular-2/learn/lecture/17862130#questions/10444944
+
+
+Alternative Non-Collapsable Navigation Bar
+The way we added it, the Navbar will collapse on smaller screens. Since we didn't implement a Hamburger menu, that means that there's no way of accessing our links on smaller screens.
+
+You can either add such a menu on your own (see below), or you replace collapse navbar-collapse  with just navbar-default.
+
+Adding a Hamburger Menu:
+
+Alternatively, if you want to make the navigation bar responsive, please replace these lines in header.component.html:
+
+<div class="navbar-header">
+  <a routerLink="/" class="navbar-brand">Recipe Book</a>
+</div>
+<div class="collapse navbar-collapse">
+with these lines:
+
+<div class="navbar-header">
+  <button type="button" class="navbar-toggle" (click)="collapsed = !collapsed">
+	<span class="icon-bar" *ngFor="let iconBar of [1, 2, 3]"></span>
+  </button>
+  <a routerLink="/" class="navbar-brand">Recipe Book</a>
+</div>
+<div class="navbar-collapse" [class.collapse]="collapsed" (window:resize)="collapsed = true">
+and add this line to header.component.ts:
+
+collapsed = true;
